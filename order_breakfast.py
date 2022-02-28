@@ -7,8 +7,8 @@ if sys.argv[1] == "help":
   print ("Nabidka zakusku:")
   for dessert in desserts:
      print (f'{dessert[0]} - {dessert[1]} Kc')
-  print()
-  print ("Nabidka napoju (cena za maly/velky napoj):")
+  
+  print ("\nNabidka napoju (cena za maly/velky napoj):")
   for drink in drinks:
     print (f'{drink[0]} - {drink[1]}/{int(int(drink[1])*1.5)} Kc')
   exit()
