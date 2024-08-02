@@ -160,11 +160,24 @@ for person in data:
     planet["population"] = int(planet["population"])
   person["homeworld"] = planet
 
+#planet = person['homeworld']
+    #keys_to_convert = ['rotation_period', 'orbital_period', 'diameter', 'surface_water', 'population']
+    #for key in keys_to_convert:
+        #value = planet[key]
+        #if value.isdigit():
+            #planet[key] = int(value)
+        #else:
+            #planet[key] = -1
+
 total_height = 0
 for person in data:
   total_height += person["height"]
 
 print (f'Prumerna vyska postav je {round(total_height/len(data))}')
+
+heights = [person['height'] for person in data]
+avg = round(sum(heights) / len(heights), 2)
+print(f'Prumerna vyska postav je {avg} cm.')
 
 gender_values = set([person["gender"] for person in data])
 
@@ -181,6 +194,19 @@ print(gender)
 gender2 = {"male": male, "female": female, "n/a": rest}
 print(gender2)
 
+list_of_lists = []
+for gender in gender_values:
+    names = [person['name'] for person in data if person['gender'] == gender]
+    list_of_lists.append(names)
+
+    gender_dict = {}
+for gender in gender_values:
+    names = []
+    for person in data:
+        if person['gender'] == gender:
+            names.append(person['name'])
+    gender_dict[gender] = names
+
 print ("Postavy s bilymi vlasy nebo kuzi:")
 for person in data:
   if "white" in person["hair_color"] or "white" in person["skin_color"]:
@@ -192,3 +218,5 @@ for person in data:
     planets.append(person["homeworld"])
 namesPlanets = [planet["name"]for planet in planets]
 print(namesPlanets)
+
+planets = [person['homeworld']['name'] for person in data]

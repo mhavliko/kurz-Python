@@ -1,5 +1,6 @@
 import requests
 import json
+import csv
 
 #funkce vrati json str data stazena z API
 def stahniApi(url):
@@ -38,10 +39,18 @@ def vyhledejNejvyssi(data,vyslednyKlic, porovnavanyKlic):
       pass
   return nejvyssi
 
-ulozFormat('hp_characters.json',stahniApi('http://hp-api.herokuapp.com/api/characters'))
+#ulozFormat('hp_characters.json',stahniApi('http://hp-api.herokuapp.com/api/characters'))
 postavy = nactiJson('hp_characters.json')
 klic = "patronus"
 print(f'Celkem existuje {pocetHodnot(postavy,klic)} patronu.')
 print(f'{len(filtruj(postavy, "alive", False))} postav jiz neni nazivu.')
 ulozFormat("gryffindor.json", filtruj(postavy, "house", "Gryffindor"))
 print(f'Nejstarsi postavou je {vyhledejNejvyssi(postavy, "name", "yearOfBirth")}.')
+
+with open('zkus.csv', mode='w', newline = '', encoding='utf-8') as f:
+  fieldnames = postavy[0].keys()
+  writer = csv.DictWriter(f, fieldnames=fieldnames)
+  writer.writeheader()
+  writer.writerows(postavy)
+
+print(fieldnames)
